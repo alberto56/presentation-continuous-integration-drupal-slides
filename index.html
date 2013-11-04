@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=1024, user-scalable=no">
+
+	<title>Continuous integration: a practical example</title>
+	
+	<!-- Required stylesheet -->
+	<link rel="stylesheet" href="core/deck.core.css">
+	
+	<!-- Extension CSS files go here. Remove or add as needed. -->
+	<link rel="stylesheet" href="extensions/goto/deck.goto.css">
+	<link rel="stylesheet" href="extensions/menu/deck.menu.css">
+	<link rel="stylesheet" href="extensions/navigation/deck.navigation.css">
+	<link rel="stylesheet" href="extensions/status/deck.status.css">
+	<link rel="stylesheet" href="extensions/hash/deck.hash.css">
+	<link rel="stylesheet" href="extensions/scale/deck.scale.css">
+	<link rel="stylesheet" href="my.css">
+
+	<!-- Style theme. More available in /themes/style/ or create your own. -->
+	<link rel="stylesheet" href="themes/style/web-2.0.css">
+	
+	<!-- Transition theme. More available in /themes/transition/ or create your own. -->
+	<link rel="stylesheet" href="themes/transition/horizontal-slide.css">
+	
+	<!-- Required Modernizr file -->
+	<script src="modernizr.custom.js"></script>
+</head>
+<body class="deck-container">
+
+<!-- Begin slides. Just make elements with a class of slide. -->
+
+
+
+<section class="slide">
+	<h2>Continuous integration: a practical example</h2>
+	<p>Albert Albala<br/>
+	@alberto56<br/>
+	albert@tp1.ca<br/>
+	http://drupal.org/user/245583<br/>
+	IRC: alberto56</p>
+</section>
+
+<section class="slide">
+	<h2>How we code, test and deploy now</h2>
+	<img src="messy.png"/>
+</section>
+
+<section class="slide">
+	<h2>How we should be coding, testing and deploying</h2>
+	<img src="clean.png"/>
+</section>
+
+<section class="slide">
+	<h2>What is Continuous integration</h2>
+	<ul>
+    <li>automate testing</li>
+    <li>code commit triggers testing</li>
+    <li>state of your project always known</li>
+    <li>Initial deployment should be easy (drush en demo_deploy -y)</li>
+    <li>Incremental deployment should be easy (drush updb -y)</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>What you should know</h2>
+	<ul>
+    <li>Testing is time-consuming</li>
+    <li>Tests <em>are</em> code</li>
+    <li>If you don't write your tests before your code, you will never write them</li>
+    <li>The best tests involve all stakeholders</li>
+    <li>Tests are documentation</li>
+    <li>Making something work locally is half the battle: it should also deploy initially and incrementally</li>
+    <li>Testing, CI and deployment go hand-in-hand</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Testing</h2>
+	<ul>
+    <li>The more tests you have, the more confident you'll be to release code to production</li>
+    <li>100% confidence = continuous deployment</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Hard-to-test scenarios</h2>
+	<ul>
+<li>Test somethig that "only happens on production"</li>
+<li>Test the time of day</li>
+<li>Test external systems</li>
+<li>To test: reproduce, then test, then fix</li></ul>
+</section>
+
+<section class="slide">
+	<h2>Don't clone your database</h2>
+	<ul>
+<li>Use Features, Context, Strongarm, hook_update_n() and hook_requirements()</li>
+<li>D8: Use CMI</li></ul>
+</section>
+
+<section class="slide">
+	<h2>Your tests are owned by the whole team</h2>
+	<ul>
+<li>Be ready to drop everything if a test breaks</li>
+<li>Is there a consensus on breaking for a coding style issue?</li></ul>
+</section>
+
+<section class="slide">
+	<h2>Fails should be visible</h2>
+	<img src="lights.png"/>
+</section>
+
+<section class="slide">
+	<h2>Only push work to the master branch</h2>
+	<ul>
+<li>Jenkins takes care of moving to production</li></ul>
+</section>
+
+<section class="slide">
+	<h2>Don't subvert your process</h2>
+	<ul>
+<li>All your clients' credit card numbers are visible on your homepage.</li>
+<li>Should your one-line fix go through two hours of tests?</li></ul>
+</section>
+
+<section class="slide">
+	<h2>It's about the culture</h2>
+	<ul>
+<li>Devs, themers will subvert your process</li>
+<li>...unless they own it</li></ul>
+</section>
+
+<section class="slide">
+	<h2>Advantages</h2>
+	<ul>
+<li>It "used to work".</li>
+<li>Who did what, when?</li>
+<li>Since when is something broken?</li>
+<li>Better define "it works"</li></ul>
+</section>
+
+<section class="slide">
+	<h2>Your website is a software product</h2>
+	<ul>
+<li>...which can be deployed any number of times</li>
+<li>...which can be upgraded</li>
+<li>...which you can deploy painlessly (drush en demo_deploy -y)</li>
+<li>...which you can upgrade painlessly (drush updb -y)</li>
+<li>Example: the STM website takes 5 minutes to deploy: drush en stm_deploy -y</li></ul>
+</section>
+
+<section class="slide">
+	<h2>What more can CI do for you?</h2>
+</section>
+
+<section class="slide">
+	<h2>Keep track of metrics over time</h2>
+	<img src="metrics.png" />
+</section>
+
+<section class="slide">
+	<h2>Take snapshots and image diffs</h2>
+	<img src="diff.png" />
+</section>
+
+<section class="slide">
+	<h2>Provision VM for testing production-like environments</h2>
+	<ul>
+	<li>As easy as running vagrant up and versioning your Chef or Puppet files</li>
+	<li>Useful if you are targeting a specific version of PHP, for example</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Test Browsers</h2>
+	<ul>
+	<li>And take screen captures and videos for further reference</li>
+	<li><a href="exemple_test_behat.mov">Example video from the STM project</a></li>
+	<li>This idea initially from the Economist project</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Test IE</h2>
+	<ul>
+	<li>Run behat and remote selenium on a Windows VM</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Conclusion: what is preventing us from implementing this?</h2>
+	<img src="clean.png" />
+</section>
+
+<section class="slide">
+	<h2>Conclusion: what is preventing us from implementing this?</h2>
+	<ul>
+	<li>It takes time, but paradoxically, we're too busy _because_ we're not using these tools</li>
+	<li>It is scary</li>
+	<li>We don't have standards (see dcycleproject.org)</li>
+	<li>We need to be careful about our tests not being longer than 2 hours</li>
+	<li>Recommended reading: "Continuous delivery" by J. Humble and D. Farley</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Continuous integration: a practical example</h2>
+	<p>Albert Albala<br/>
+	@alberto56<br/>
+	albert@tp1.ca<br/>
+	http://drupal.org/user/245583<br/>
+	IRC: alberto56</p>
+</section>
+
+<!-- End slides. -->
+
+
+<!-- Begin extension snippets. Add or remove as needed. -->
+
+<!-- deck.navigation snippet -->
+<a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+<a href="#" class="deck-next-link" title="Next">&#8594;</a>
+
+<!-- deck.status snippet -->
+<p class="deck-status">
+	<span class="deck-status-current"></span>
+	/
+	<span class="deck-status-total"></span>
+</p>
+
+<!-- deck.goto snippet -->
+<form action="." method="get" class="goto-form">
+	<label for="goto-slide">Go to slide:</label>
+	<input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
+	<datalist id="goto-datalist"></datalist>
+	<input type="submit" value="Go">
+</form>
+
+<!-- deck.hash snippet -->
+<a href="." title="Permalink to this slide" class="deck-permalink">#</a>
+
+<!-- End extension snippets. -->
+
+
+<!-- Required JS files. -->
+<script src="jquery-1.7.2.min.js"></script>
+<script src="core/deck.core.js"></script>
+
+<!-- Extension JS files. Add or remove as needed. -->
+<script src="core/deck.core.js"></script>
+<script src="extensions/hash/deck.hash.js"></script>
+<script src="extensions/menu/deck.menu.js"></script>
+<script src="extensions/goto/deck.goto.js"></script>
+<script src="extensions/status/deck.status.js"></script>
+<script src="extensions/navigation/deck.navigation.js"></script>
+<script src="extensions/scale/deck.scale.js"></script>
+
+<!-- Initialize the deck. You can put this in an external file if desired. -->
+<script>
+	$(function() {
+		$.deck('.slide');
+	});
+</script>
+</body>
+</html>
+
